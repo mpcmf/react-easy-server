@@ -26,7 +26,7 @@ class simpleConnector
     ];
 
     /**
-     * @var React\SocketClient\Connector
+     * @var React\Socket\Connector
      */
     protected $connector;
 
@@ -43,14 +43,14 @@ class simpleConnector
     }
 
     /**
-     * @return React\SocketClient\Connector
+     * @return React\Socket\Connector
      */
     public function getConnector()
     {
         if($this->connector === null) {
             $dnsResolverFactory = new React\Dns\Resolver\Factory();
             $dns = $dnsResolverFactory->createCached($this->config['dns'], $this->loop);
-            $this->connector = new React\SocketClient\Connector($this->loop, $dns);
+            $this->connector = new React\Socket\Connector($this->loop, $dns);
         }
 
         return $this->connector;

@@ -34,7 +34,7 @@ class easyServer
     private $socketServerInstance;
 
     /**
-     * @var React\EventLoop\ExtEventLoop|React\EventLoop\LibEventLoop|React\EventLoop\LibEvLoop|React\EventLoop\StreamSelectLoop
+     * @var React\EventLoop\ExtEventLoop|React\EventLoop\ExtLibeventLoop|React\EventLoop\ExtLibevLoop|React\EventLoop\StreamSelectLoop
      */
     protected $loop;
 
@@ -158,7 +158,7 @@ class easyServer
     protected function socketServer()
     {
         if($this->socketServerInstance === null) {
-            $this->socketServerInstance = new React\Socket\Server("{$this->config['host']}:{$this->config['port']}", $this->loop);
+            $this->socketServerInstance = new React\Socket\SocketServer("{$this->config['host']}:{$this->config['port']}", [], $this->loop);
         }
 
         return $this->socketServerInstance;

@@ -22,7 +22,7 @@ class client
 {
 
     /**
-     * @var React\EventLoop\ExtEventLoop|React\EventLoop\LibEventLoop|React\EventLoop\LibEvLoop|React\EventLoop\StreamSelectLoop
+     * @var React\EventLoop\ExtEventLoop|React\EventLoop\ExtLibeventLoop|React\EventLoop\ExtLibevLoop|React\EventLoop\StreamSelectLoop
      */
     protected $loop;
 
@@ -54,10 +54,10 @@ class client
     {
         if(is_resource($socket)) {
             $this->clientConnection = new React\Socket\Connection($socket, $loop);
-        } elseif(is_a($socket, React\Socket\Connection::class)) {
+        } elseif(is_a($socket, React\Socket\ConnectionInterface::class)) {
             $this->clientConnection = $socket;
         } else {
-            throw new easyServerException('Invalid connection: ' . gettype($socket) . ' given. Allowed types: resource, ' . React\Socket\Connection::class . '.');
+            throw new easyServerException('Invalid connection: ' . gettype($socket) . ' given. Allowed types: resource, ' . React\Socket\ConnectionInterface::class . '.');
         }
         $this->clientConnection->pause();
         $this->loop = $loop;
